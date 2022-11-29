@@ -190,7 +190,7 @@ class Polygon(Geometry):
                 plotter.add_point(test_point[l][1], test_point[l][2], kind)
 
 RCA = Polygon('A', polygon_data)
-RCA.count(list_unclassified, polygon_data)
+RCA.count(list_point, polygon_data)
 
 plotter.add_polygon(polygon_data_x, polygon_data_y)
 plotter.add_MBR(x_max, x_min, y_max, y_min)

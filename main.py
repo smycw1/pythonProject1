@@ -166,6 +166,7 @@ class Polygon(Geometry):
     def count(self, test_point, polygon_vertex):
         plotter = Plotter()
         kind = ''
+        list_classified = []
 # create the polygon
         polygon_vertex = tuple(polygon_vertex[:])+(polygon_vertex[0],)
         for l in range(len(test_point)):
@@ -187,17 +188,30 @@ class Polygon(Geometry):
                 print(test_point[l][0], 'outside')
                 kind = 'outside'
                 plotter.add_point(test_point[l][1], test_point[l][2], kind)
+                list_classified.append([test_point[l][0], kind])
             if count_number == -1:
                 kind = 'boundary'
                 plotter.add_point(test_point[l][1], test_point[l][2], kind)
+                list_classified.append([test_point[l][0], kind])
             elif count_number % 2 == 1:
                 print(test_point[l][0], 'inside')
                 kind = 'inside'
                 plotter.add_point(test_point[l][1], test_point[l][2], kind)
                 plotter.arrow(test_point[l][1], test_point[l][2])
+                list_classified.append([test_point[l][0], kind])
+                import csv
+        k = open('/Users/vchao/PycharmProjects/point-in-polygon-test-smycw1/sample_output.csv', 'w', encoding='utf-8', newline="")
+        csv_write = csv.writer(k)
+        print(list_classified)
+        for v in list_classified:
+            csv_write.writerow([v[0], v[1]])
+
+
+
 
 RCA = Polygon('A', polygon_data)
-RCA.count(list_unclassified, polygon_data)
+RCA.count(data, polygon_data)
+
 
 plotter.add_polygon(polygon_data_x, polygon_data_y)
 plotter.add_MBR(x_max, x_min, y_max, y_min)
